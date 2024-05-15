@@ -1,0 +1,44 @@
+@import './variables';
+@import './libs/normalize';
+
+body {
+	background-color: $gray;
+}
+
+.content {
+	overflow: scroll; //UBRAT
+	width: calc(100vw - 88px);
+
+	border-radius: 15px;
+
+	margin-top: 36px;
+	margin-inline: auto;
+
+	margin-bottom: 10px;
+
+	padding-inline: 126px;
+
+	background-color: $white;
+
+	box-shadow: -45px -19px 106px 0px rgba(150, 150, 150, 0.1),
+		-179px -74px 193px 0px rgba(150, 150, 150, 0.09),
+		-402px -167px 261px 0px rgba(150, 150, 150, 0.05),
+		-715px -297px 310px 0px rgba(150, 150, 150, 0.01),
+		-1117px -464px 339px 0px rgba(150, 150, 150, 0);
+
+	@media (max-width: 1430px) {
+		width: calc(100vw - 44px);
+		padding-inline: 50px;
+	}
+
+	@media (max-width: 970px) {
+		width: 100%;
+
+		margin-top: 0;
+		border-radius: 0;
+	}
+
+	@media (max-width: 520px) {
+		padding-inline: 20px;
+	}
+}

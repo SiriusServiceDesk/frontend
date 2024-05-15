@@ -1,0 +1,71 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	margin-inline: auto;
+	padding-top: 45px;
+}
+
+.logo {
+	width: 81px;
+
+	cursor: pointer;
+
+	transition: 0.2s all ease-in-out;
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+.notifications {
+	margin-right: 60px;
+	opacity: 0.45;
+
+	transition: 0.2s all ease-in-out;
+	&:hover {
+		opacity: 1;
+		animation: noti 0.3s 2;
+
+		cursor: pointer;
+	}
+}
+
+.profile {
+	opacity: 0.45;
+
+	transition: 0.2s all ease-in-out;
+	&:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+}
+
+@media (max-width: 1200px) {
+	.notifications,
+	.profile {
+		width: 30px;
+	}
+
+	.notifications {
+		margin-right: 20px;
+	}
+	.logo {
+		width: 60px;
+	}
+}
+
+@keyframes noti {
+	0% {
+		transform: rotate(1deg);
+	}
+	25% {
+		transform: rotate(5deg);
+	}
+	75% {
+		transform: rotate(2deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
