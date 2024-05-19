@@ -1,0 +1,68 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21.7.0'
+
+      - name: Build Docker image
+        run: docker build -t frontend-builder .
+
+      - name: Create and start container
+        run: |
+          docker create --name frontend-build frontend-builder
+          docker start frontend-build
+          docker wait frontend-build
+          docker cp frontend-build:/app/dist ./dist
+          docker rm frontend-build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ./dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+
+      - name: Deploy to server
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          source: "dist/*"
+          target: "/var/www/siriusServiceDesk/"
+
+      - name: Extract build on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            rm -rf /var/www/siriusServiceDesk/*
+            mv dist/* /var/www/siriusServiceDesk/
+            service nginx restart
