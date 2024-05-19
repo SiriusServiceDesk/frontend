@@ -69,3 +69,4 @@ jobs:
           script: |
             tar -xzf /var/www/siriusServiceDesk/build.tar.gz -C /var/www/siriusServiceDesk
             rm /var/www/siriusServiceDesk/build.tar.gz
+            service nginx restart
