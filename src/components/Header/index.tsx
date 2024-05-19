@@ -27,7 +27,6 @@ export const Header = () => {
 	}, [data, isLoading])
 
 	const userData = useSelector(userSelector)
-	console.log(userData)
 
 	const handleExit = () => {
 		dispatch(removeUser())
