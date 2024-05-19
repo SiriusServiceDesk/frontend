@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './RequestsBlock.module.scss'
 
+import { Link } from 'react-router-dom'
 import arrow from '../../assets/arrow.svg'
 import update from '../../assets/update.svg'
 
@@ -53,6 +54,8 @@ export const RequestsBlock = () => {
 		}
 	}
 
+	// const handleRequestClick = () => {}
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.requests__menu}>
@@ -89,16 +92,22 @@ export const RequestsBlock = () => {
 
 				<div className={styles.requests}>
 					{requests.map((req, index) => (
-						<div key={index} className={styles.request}>
-							<span className={styles.id}>123123</span>
-							<span className={styles.title}>починить кампутр</span>
-							<span className={styles.status} style={{ color: 'blue' }}>
-								Заморожена
-							</span>
-							<span className={styles.performer}>Технический отдел</span>
-							<span className={styles.date}>21.05.2025</span>
-							<img src={arrow} alt='arrow' />
-						</div>
+						<Link
+							key={index}
+							to={`request/${req.id}`}
+							className={styles.requestLink}
+						>
+							<div className={styles.request}>
+								<span className={styles.id}>{req.id}</span>
+								<span className={styles.title}>{req.name}</span>
+								<span className={styles.status} style={{ color: 'blue' }}>
+									{req.status}
+								</span>
+								<span className={styles.performer}>{req.performer}</span>
+								<span className={styles.date}>{req.date}</span>
+								<img src={arrow} alt='arrow' />
+							</div>
+						</Link>
 					))}
 				</div>
 			</div>

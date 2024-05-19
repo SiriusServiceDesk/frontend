@@ -1,3 +1,6 @@
 export * from './Header'
-export * from './Welcome'
+export * from './Popups/LoginPopup'
+export * from './Popups/RegisterPopup'
 export * from './RequestsBlock'
+export * from './Popups/VerifyEmailPopup'
+export * from './Welcome'
