@@ -16,24 +16,25 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '21.7.0'
+          node-version: '16'
 
-      - name: Build Docker image
-        run: docker build -t frontend-builder .
+      - name: Install dependencies
+        run: npm install
 
-      - name: Create and start container
-        run: |
-          docker create --name frontend-build frontend-builder
-          docker start frontend-build
-          docker wait frontend-build
-          docker cp frontend-build:/app/dist ./dist
-          docker rm frontend-build
+      - name: Build the application
+        run: npm run build
+
+      - name: List files in dist directory
+        run: ls -la ./dist
+
+      - name: Archive build folder
+        run: tar -czf build.tar.gz -C dist .
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: dist
-          path: ./dist
+          name: build
+          path: build.tar.gz
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,7 +44,10 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v2
         with:
-          name: dist
+          name: build
+
+      - name: List files in dist directory
+        run: tar -tzf build.tar.gz
 
       - name: Deploy to server
         uses: appleboy/scp-action@v0.1.1
@@ -52,7 +56,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
-          source: "dist/*"
+          source: "build.tar.gz"
           target: "/var/www/siriusServiceDesk/"
 
       - name: Extract build on server
@@ -63,6 +67,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            rm -rf /var/www/siriusServiceDesk/*
-            mv dist/* /var/www/siriusServiceDesk/
-            service nginx restart
+            tar -xzf /var/www/siriusServiceDesk/build.tar.gz -C /var/www/siriusServiceDesk
+            rm /var/www/siriusServiceDesk/build.tar.gz
