@@ -49,7 +49,8 @@
 	}
 }
 
-.button {
+.button,
+.buttonNotLoggined {
 	display: flex;
 	justify-content: center;
 
@@ -70,6 +71,12 @@
 	&:hover {
 		background-color: #dbd9d9;
 	}
+}
+
+.buttonNotLoggined {
+	pointer-events: none;
+
+	opacity: 0.6;
 }
 
 .color_block {
@@ -96,7 +103,8 @@
 		}
 	}
 
-	.button {
+	.button,
+	.buttonNotLoggined {
 		width: 282px;
 		font-size: 20px;
 	}
@@ -119,7 +127,8 @@
 		}
 	}
 
-	.button {
+	.button,
+	.buttonNotLoggined {
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -162,7 +171,8 @@
 		}
 	}
 
-	.button {
+	.button,
+	.buttonNotLoggined {
 		top: 90%;
 
 		font-size: 15px;

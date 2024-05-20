@@ -1,18 +1,15 @@
+import { grid } from 'ldrs'
 import { Link, useParams } from 'react-router-dom'
 import home from '../assets/home.svg'
+import { useGetByIdQuery } from '../redux/services/application'
+import { ReqColor } from '../types/ReqColor'
 
 const RequestPage = () => {
 	const { id } = useParams()
 
-	const request = {
-		id: { id },
-		name: 'почистить кампутр',
-		status: 'in progress',
-		performer: 'Технический отдел',
-		comment: 'Технический отдел сраки нюх фу фу фу ',
-		date: '21.02.2024',
-		execution_period: '7 рабочиий пенис',
-	}
+	const { data, isLoading } = useGetByIdQuery(id)
+
+	grid.register()
 
 	return (
 		<div className='request-page'>
@@ -25,35 +22,63 @@ const RequestPage = () => {
 				</Link>
 				<span className='request-page__heading-id'>№ {id}</span>
 			</div>
-			<div className='request-page__id__status'>
-				<h1>ID заявки: №{id}</h1>
-				<div>В работе</div>
-			</div>
-			<div className='request-page__info'>
-				<h1>Детали</h1>
-				<div className='request-page__info__module'>
-					<ul className='request-page__info__titles'>
-						<li>Название</li>
-						<li>Статус</li>
-						<li>Исполнитель</li>
-						<li>Дата подачи</li>
-						<li>Комментарий</li>
-						<li className='request-page__info__titles__deadline'>
-							Срок выполнения
-						</li>
-					</ul>
-					<ul className='request-page__info__values'>
-						<li>{request.name}</li>
-						<li>{request.status}</li>
-						<li>{request.performer}</li>
-						<li>{request.date}</li>
-						<li className='request-page__info__values__comment'>
-							{request.comment}
-						</li>
-						<li>{request.execution_period}</li>
-					</ul>
+			{isLoading ? (
+				<div className='loader'>
+					<l-grid size='60' speed='1.5' color='#5046e6'></l-grid>
 				</div>
-			</div>
+			) : (
+				<>
+					{!isLoading && data ? (
+						<>
+							<div className='request-page__id__status'>
+								<h1>ID заявки: №{id}</h1>
+								<div
+									style={{
+										backgroundColor: `${
+											(ReqColor as any)[data.payload.status]
+										}`,
+									}}
+								>
+									{data.payload.status}
+								</div>
+							</div>
+							<div className='request-page__info'>
+								<h1>Детали</h1>
+								<div className='request-page__info__module'>
+									<ul className='request-page__info__titles'>
+										<li>Название</li>
+										<li>Статус</li>
+										<li>Исполнитель</li>
+										<li>Дата подачи</li>
+										<li>Комментарий</li>
+										<li className='request-page__info__titles__deadline'>
+											Срок выполнения
+										</li>
+									</ul>
+									<ul className='request-page__info__values'>
+										<li>{data.payload.title}</li>
+										<li
+											style={{
+												color: `${(ReqColor as any)[data.payload.status]}`,
+											}}
+										>
+											{data.payload.status}
+										</li>
+										<li>{data.payload.performer}</li>
+										<li>{data.payload.create_date}</li>
+										<li className='request-page__info__values__comment'>
+											{data.payload.comment}
+										</li>
+										<li>{data.payload.execution_period}</li>
+									</ul>
+								</div>
+							</div>
+						</>
+					) : (
+						<h1 className='request-error'>Такой заявки нет...</h1>
+					)}
+				</>
+			)}
 		</div>
 	)
 }
