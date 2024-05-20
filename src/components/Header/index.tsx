@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import exit from '../../assets/exit.svg'
 import logo from '../../assets/logo.svg'
-import notifications from '../../assets/notifications.svg'
 import profile from '../../assets/profile.svg'
 import { userSelector } from '../../redux/selectors/userSelector'
 import { useGetUserQuery } from '../../redux/services/user'
@@ -54,7 +53,6 @@ export const Header = () => {
 				<img className={styles.logo} src={logo} alt='logo' />
 			</Link>
 			<div>
-				<img className={styles.notifications} src={notifications} alt='notis' />
 				{!userData.name ? (
 					<img
 						className={styles.profile}

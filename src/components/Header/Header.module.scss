@@ -18,19 +18,6 @@
 	}
 }
 
-.notifications {
-	margin-right: 60px;
-	opacity: 0.45;
-
-	transition: 0.2s all ease-in-out;
-	&:hover {
-		opacity: 1;
-		animation: noti 0.3s 2;
-
-		cursor: pointer;
-	}
-}
-
 .profile {
 	opacity: 0.45;
 
@@ -42,16 +29,13 @@
 }
 
 @media (max-width: 1200px) {
-	.notifications,
-	.profile {
-		width: 30px;
-	}
-
-	.notifications {
-		margin-right: 20px;
-	}
 	.logo {
 		width: 60px;
+	}
+}
+@media (max-width: 540px) {
+	.profile {
+		width: 30px;
 	}
 }
 
