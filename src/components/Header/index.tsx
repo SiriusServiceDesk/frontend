@@ -28,7 +28,8 @@ export const Header = () => {
 	const userData = useSelector(userSelector)
 
 	const handleExit = () => {
-		dispatch(removeUser())
+		let conf = confirm('Вы уверены, что хотите выйти?')
+		conf && dispatch(removeUser())
 	}
 
 	return (
