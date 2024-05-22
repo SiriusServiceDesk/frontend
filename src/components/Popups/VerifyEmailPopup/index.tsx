@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { userSelector } from '../../../redux/selectors/userSelector'
 import {
 	useConfirmEmailMutation,
+	useLoginMutation,
 	useResendCodeMutation,
 } from '../../../redux/services/user'
 
@@ -18,12 +19,13 @@ export const VerifyEmailPopup: React.FC<EmailPopupProps> = ({
 	const [inputValue, setInputValue] = useState('')
 	const [completed, setCompleted] = useState(false)
 	const [resent, setResent] = useState(false)
-	const { email } = useSelector(userSelector)
+	const { email, password } = useSelector(userSelector)
 
 	const [confirmEmail, { isLoading, isError: isVerifyError, reset }] =
 		useConfirmEmailMutation()
 
 	const [resendCode, {}] = useResendCodeMutation()
+	const [login, {}] = useLoginMutation()
 
 	const handleChange = (value: string) => {
 		reset()
@@ -41,6 +43,14 @@ export const VerifyEmailPopup: React.FC<EmailPopupProps> = ({
 			}).then(response => {
 				if (!response.error) {
 					setSelfOpened(false)
+					login({ email, password }).then((response: any) => {
+						if (response.error) {
+							console.log('login error')
+						} else {
+							localStorage.setItem('token', response.data)
+							window.location.reload()
+						}
+					})
 				}
 			})
 		}

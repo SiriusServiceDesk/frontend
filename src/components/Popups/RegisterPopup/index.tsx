@@ -47,7 +47,7 @@ export const RegisterPopup: React.FC<PopupProps & VerifyProp> = ({
 			if (isRegError) {
 				console.log(response)
 			} else {
-				dispatch(setUser({ email }))
+				dispatch(setUser({ email, password }))
 			}
 		})
 		reset()
