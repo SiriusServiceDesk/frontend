@@ -75,6 +75,7 @@
 
 .buttonNotLoggined {
 	pointer-events: none;
+	width: 400px !important;
 
 	opacity: 0.6;
 }
@@ -133,7 +134,7 @@
 		top: 100%;
 		left: 0;
 
-		width: 100%;
+		width: 100% !important;
 
 		background-color: #5046e6;
 		color: #f8f8f8;
