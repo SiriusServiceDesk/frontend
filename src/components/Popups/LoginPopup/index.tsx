@@ -41,7 +41,7 @@ export const LoginPopup: React.FC<PopupProps> = ({
 				console.log(response.error)
 			}
 		})
-		reset()
+		reset({ password: '' })
 		clearErrors()
 	}
 
