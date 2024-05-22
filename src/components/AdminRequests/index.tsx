@@ -44,6 +44,7 @@ export const AdminRequests: React.FC<any> = ({ requests = [] }) => {
 									priority: req.priority,
 									execution_period: req.execution_period,
 									performer: req.performer,
+									feedback: req.feedback,
 								})
 							}
 						>
@@ -81,6 +82,7 @@ export const AdminRequests: React.FC<any> = ({ requests = [] }) => {
 									priority: req.priority,
 									execution_period: req.execution_period,
 									performer: req.performer,
+									feedback: req.feedback,
 								})
 							}
 						>
@@ -118,6 +120,7 @@ export const AdminRequests: React.FC<any> = ({ requests = [] }) => {
 									priority: req.priority,
 									execution_period: req.execution_period,
 									performer: req.performer,
+									feedback: req.feedback,
 								})
 							}
 						>
