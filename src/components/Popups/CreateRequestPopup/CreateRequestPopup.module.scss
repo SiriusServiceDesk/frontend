@@ -12,6 +12,8 @@
 			align-items: center;
 			gap: 20px;
 
+			position: relative;
+
 			padding-left: 16px;
 
 			border-radius: 10px;
@@ -20,6 +22,8 @@
 			font-weight: 500;
 
 			transition: 0.2s all ease-in-out;
+
+			cursor: pointer;
 
 			b {
 				font-size: 30px;
@@ -30,11 +34,23 @@
 			&:hover {
 				background-color: #f3f3f3;
 			}
+
+			img {
+				display: none;
+				width: 20px;
+				position: absolute;
+				right: 15px;
+				top: 20px;
+			}
 		}
 		transition: all 0.2s ease-in-out;
 	}
 	.selected {
 		background-color: #efefef;
+
+		img {
+			display: block;
+		}
 	}
 
 	transition: 0.2s all ease-in-out;

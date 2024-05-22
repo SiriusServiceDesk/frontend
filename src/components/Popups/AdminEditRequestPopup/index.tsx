@@ -8,7 +8,10 @@ import { AdminEditRequestFormValues } from '../types/AdminEditRequestFormValues'
 import { AdminEditRequestPopupProps } from '../types/AdminEditRequestPopupProps'
 
 import { useState } from 'react'
-import { adminEditRequestValidationSchema } from '../schema/adminEditRequestValidationSchema'
+import {
+	adminEditRequestValidationSchema,
+	adminEditRequestValidationSchemaIgnoreFields,
+} from '../schema/adminEditRequestValidationSchema'
 import styles from './AdminEditRequestPopup.module.scss'
 
 export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
@@ -17,8 +20,6 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 }) => {
 	const [status, setStatus] = useState(request.status)
 	const [priority, setPriority] = useState(request.priority)
-
-	console.log(request)
 
 	const [update, { isLoading, isError }] = useUpdateRequestMutation()
 	const {
@@ -31,24 +32,29 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 		defaultValues: {
 			execution_period: request.execution_period,
 			feedback: request.feedback,
+			performer: request.performer,
 		},
 		mode: 'onChange',
-		resolver: yupResolver(adminEditRequestValidationSchema),
+		resolver: yupResolver(
+			status === 'В работе'
+				? adminEditRequestValidationSchema
+				: adminEditRequestValidationSchemaIgnoreFields
+		),
 	})
 
 	const onSubmit = (data: AdminEditRequestFormValues) => {
-		const { execution_period, feedback } = data
-		update([request.id, { execution_period, feedback, status, priority }]).then(
-			(response: any) => {
-				if (!response.error) {
-					setSelfOpened({})
-					window.location.reload()
-				} else {
-					console.log(response.error)
-				}
+		const { execution_period, feedback, performer } = data
+		update([
+			request.id,
+			{ execution_period, feedback, performer, status, priority },
+		]).then((response: any) => {
+			if (!response.error) {
+				setSelfOpened({})
+				window.location.reload()
+			} else {
+				console.log(response.error)
 			}
-		)
-		console.log({ execution_period, feedback, status, priority })
+		})
 
 		reset()
 		clearErrors()
@@ -102,7 +108,7 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 							</li>
 						</ul>
 					</div>
-					{status !== 'Выполнена' && (
+					{status !== 'Выполнена' && status !== 'Отклонена' && (
 						<div className={styles.prioritySelection}>
 							<h2>Приоритет</h2>
 							<ul>
@@ -132,18 +138,22 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 				</div>
 
 				<form onSubmit={handleSubmit(onSubmit)}>
-					{status !== 'Выполнена' && (
+					{status !== 'Выполнена' && status !== 'Отклонена' && (
 						<>
 							<span>Срок исполнения</span>
 							<input
 								{...register('execution_period')}
 								placeholder='Срок исполнения'
-								// value={executionPeriod}
-								// onChange={e => setExecutionPeriod(e.target.value)}
 							/>
 							{errors?.execution_period && (
 								<p>{errors.execution_period.message}</p>
 							)}
+							<span>Отдел</span>
+							<input
+								{...register('performer')}
+								placeholder='Отдел или исполнитель'
+							/>
+							{errors?.performer && <p>{errors.performer.message}</p>}
 						</>
 					)}
 					<span>Обратная связь </span> <textarea {...register('feedback')} />

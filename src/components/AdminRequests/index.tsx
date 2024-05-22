@@ -128,12 +128,12 @@ export const AdminRequests: React.FC<any> = ({ requests = [] }) => {
 							<span className={styles.title}>{req.title}</span>
 							<div>
 								<span className={styles.applicant}>{req.applicant}</span>
-								{/* <span
+								<span
 									className={styles.priority}
 									style={{ color: (PriorityColor as any)[req.priority] }}
 								>
 									{req.priority}
-								</span> */}
+								</span>
 							</div>
 						</div>
 					))}

@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import cross from '../../../assets/cross.svg'
 import info from '../../../assets/info.svg'
+import selectedSvg from '../../../assets/selected.svg'
 import { createReqDefaultValues } from '../schema/createReqDefaultValues'
 import { createReqValidationSchema } from '../schema/createReqValidationSchema'
 import { CreateReqFormValues } from '../types/CreateReqFormValues'
@@ -16,7 +17,9 @@ import styles from './CreateRequestPopup.module.scss'
 export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 	setSelfOpened,
 }) => {
-	const [selectedPerformer, setSelectedPerformer] = useState(0)
+	const [selectedPerformer, setSelectedPerformer] = useState<
+		number | undefined
+	>()
 	const [create, { isLoading, isError }] = useCreateRequestMutation()
 
 	const {
@@ -33,16 +36,18 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 
 	const onSubmit = (data: CreateReqFormValues) => {
 		const { title, comment } = data
-		create({ title, comment, performer: Performers[selectedPerformer] }).then(
-			(response: any) => {
-				if (!response.error) {
-					setSelfOpened(false)
-					window.location.reload()
-				} else {
-					console.log(response.error)
-				}
+		create({
+			title,
+			comment,
+			performer: selectedPerformer ? Performers[selectedPerformer] : '',
+		}).then((response: any) => {
+			if (!response.error) {
+				setSelfOpened(false)
+				window.location.reload()
+			} else {
+				console.log(response.error)
 			}
-		)
+		})
 
 		reset()
 		clearErrors()
@@ -122,6 +127,7 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 							>
 								<b>💻</b>
 								Технический отдел
+								<img src={selectedSvg} alt='sel' />
 							</li>
 							<li
 								onClick={() => setSelectedPerformer(1)}
@@ -129,6 +135,7 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 							>
 								<b>📄</b>
 								Методический отдел
+								<img src={selectedSvg} alt='sel' />
 							</li>
 							<li
 								onClick={() => setSelectedPerformer(2)}
@@ -136,6 +143,7 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 							>
 								<b>📖</b>
 								Учебный офис
+								<img src={selectedSvg} alt='sel' />
 							</li>
 							<li
 								onClick={() => setSelectedPerformer(3)}
@@ -143,6 +151,7 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 							>
 								<b>🛏️</b>
 								Гостиница
+								<img src={selectedSvg} alt='sel' />
 							</li>
 							<li
 								onClick={() => setSelectedPerformer(4)}
@@ -150,6 +159,7 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 							>
 								<b>🧸</b>
 								Воспитательный отдел
+								<img src={selectedSvg} alt='sel' />
 							</li>
 						</ul>
 					</div>

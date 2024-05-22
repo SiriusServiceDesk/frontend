@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import admin from '../../assets/admin.svg'
 import exit from '../../assets/exit.svg'
 import logo from '../../assets/logo.svg'
 import profile from '../../assets/profile.svg'
@@ -18,7 +19,6 @@ export const Header = () => {
 	const [logPopupOpened, setLogPopupOpened] = useState<Boolean>(false)
 	const [verifyPopupOpened, setVerifyPopupOpened] = useState<Boolean>(false)
 	const navigate = useNavigate()
-	let location = useLocation()
 
 	const { data, isLoading } = useGetUserQuery({})
 	useEffect(() => {
@@ -55,10 +55,15 @@ export const Header = () => {
 			{verifyPopupOpened && (
 				<VerifyEmailPopup setSelfOpened={setVerifyPopupOpened} />
 			)}
-			<Link to={location.pathname === '/admin' ? '/admin' : '/'}>
+			<Link to='/'>
 				<img className={styles.logo} src={logo} alt='logo' />
 			</Link>
-			<div>
+			<div className={styles.sideMenu}>
+				{userData.role === 'Админ' && (
+					<Link to='/admin'>
+						<img className={styles.admin} src={admin} alt='adm' />
+					</Link>
+				)}
 				{!userData.name ? (
 					<img
 						className={styles.profile}
