@@ -4,6 +4,7 @@ const initialState = {
 	name: null,
 	surname: null,
 	email: null,
+	role: null,
 }
 
 const userSlice = createSlice({
@@ -14,6 +15,7 @@ const userSlice = createSlice({
 			state.name = action.payload.name
 			state.surname = action.payload.surname
 			state.email = action.payload.email
+			state.role = action.payload.role
 		},
 		removeUser() {
 			localStorage.removeItem('token')

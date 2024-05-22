@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import exit from '../../assets/exit.svg'
 import logo from '../../assets/logo.svg'
 import profile from '../../assets/profile.svg'
@@ -17,6 +17,8 @@ export const Header = () => {
 	const [regPopupOpened, setRegPopupOpened] = useState<Boolean>(false)
 	const [logPopupOpened, setLogPopupOpened] = useState<Boolean>(false)
 	const [verifyPopupOpened, setVerifyPopupOpened] = useState<Boolean>(false)
+	const navigate = useNavigate()
+	let location = useLocation()
 
 	const { data, isLoading } = useGetUserQuery({})
 	useEffect(() => {
@@ -29,7 +31,10 @@ export const Header = () => {
 
 	const handleExit = () => {
 		let conf = confirm('Вы уверены, что хотите выйти?')
-		conf && dispatch(removeUser())
+		if (conf) {
+			dispatch(removeUser())
+			navigate('/')
+		}
 	}
 
 	return (
@@ -50,7 +55,7 @@ export const Header = () => {
 			{verifyPopupOpened && (
 				<VerifyEmailPopup setSelfOpened={setVerifyPopupOpened} />
 			)}
-			<Link to='/'>
+			<Link to={location.pathname === '/admin' ? '/admin' : '/'}>
 				<img className={styles.logo} src={logo} alt='logo' />
 			</Link>
 			<div>

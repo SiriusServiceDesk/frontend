@@ -1,0 +1,165 @@
+.info {
+	display: flex;
+	flex-direction: column;
+
+	margin-top: -30px;
+	font-weight: 500;
+
+	h2 {
+		font-size: 14px;
+	}
+}
+
+.id {
+	margin-bottom: 5px;
+
+	color: #5046e6;
+	font-size: 14px;
+}
+
+.title {
+	font-weight: 400;
+	opacity: 0.5;
+}
+
+.comment {
+	margin-bottom: 20px;
+
+	font-size: 14px;
+	font-weight: 400;
+
+	opacity: 0.5;
+}
+
+.statusSelection {
+	width: 100%;
+
+	ul {
+		display: flex;
+		gap: 20px;
+
+		margin-top: 6px;
+		li {
+			display: flex;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+			padding: 18px 0;
+
+			background-color: #fff;
+			border-radius: 10px;
+
+			font-size: 16px;
+			font-weight: 400;
+
+			border: 1px solid transparent;
+
+			cursor: pointer;
+
+			transition: 0.2s all ease-in-out;
+
+			&:nth-child(2) {
+				color: #5046e6;
+			}
+
+			&:nth-child(3) {
+				color: #00a210;
+			}
+		}
+		&:has(.selectedDeclined) {
+			li:not(.selectedDeclined) {
+				opacity: 0.5;
+			}
+		}
+		&:has(.selectedInWork) {
+			li:not(.selectedInWork) {
+				opacity: 0.5;
+			}
+		}
+		&:has(.selectedDone) {
+			li:not(.selectedDone) {
+				opacity: 0.5;
+			}
+		}
+	}
+}
+
+.selectedDeclined {
+	border-color: black !important;
+}
+
+.selectedInWork {
+	border-color: #5046e6 !important;
+}
+
+.selectedDone {
+	border-color: #00a210 !important;
+}
+
+.prioritySelection {
+	width: 100%;
+
+	ul {
+		display: flex;
+		gap: 20px;
+
+		margin-top: 6px;
+		li {
+			display: flex;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+			padding: 18px 0;
+
+			background-color: #fff;
+			border-radius: 10px;
+
+			font-size: 16px;
+			font-weight: 400;
+
+			border: 1px solid transparent;
+
+			cursor: pointer;
+
+			transition: 0.2s all ease-in-out;
+
+			&:nth-child(1) {
+				color: #00a210;
+			}
+			&:nth-child(2) {
+				color: #5046e6;
+			}
+
+			&:nth-child(3) {
+				color: #f54135;
+			}
+		}
+		&:has(.selectedLow) {
+			li:not(.selectedLow) {
+				opacity: 0.5;
+			}
+		}
+		&:has(.selectedMiddle) {
+			li:not(.selectedMiddle) {
+				opacity: 0.5;
+			}
+		}
+		&:has(.selectedHigh) {
+			li:not(.selectedHigh) {
+				opacity: 0.5;
+			}
+		}
+	}
+}
+
+.selectedLow {
+	border-color: #00a210 !important;
+}
+
+.selectedMiddle {
+	border-color: #5046e6 !important;
+}
+
+.selectedHigh {
+	border-color: #f54135 !important;
+}

@@ -25,7 +25,7 @@ export const Welcome = () => {
 					className={name ? styles.button : styles.buttonNotLoggined}
 					onClick={() => setCreateReqOpened(true)}
 				>
-					Оставить заявку
+					{name ? 'Оставить заявку' : 'Сначала зарегистрируйтесь'}
 				</div>
 			</div>
 			<img src={welcomeGuy} alt='welcome' />

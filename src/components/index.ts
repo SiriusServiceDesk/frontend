@@ -1,4 +1,7 @@
+export * from './AdminRequests'
+export * from './Analytics'
 export * from './Header'
+export * from './Monitoring'
 export * from './Popups/CreateRequestPopup'
 export * from './Popups/LoginPopup'
 export * from './Popups/RegisterPopup'
