@@ -11,4 +11,5 @@ export interface AdminEditRequestPopupState {
 	priority?: string
 	execution_period?: string
 	performer?: string
+	feedback?: string
 }

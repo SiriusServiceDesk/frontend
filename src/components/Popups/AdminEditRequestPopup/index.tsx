@@ -8,7 +8,6 @@ import { AdminEditRequestFormValues } from '../types/AdminEditRequestFormValues'
 import { AdminEditRequestPopupProps } from '../types/AdminEditRequestPopupProps'
 
 import { useState } from 'react'
-import { adminEditRequestDefaultValues } from '../schema/adminEditRequestDefaultValues'
 import { adminEditRequestValidationSchema } from '../schema/adminEditRequestValidationSchema'
 import styles from './AdminEditRequestPopup.module.scss'
 
@@ -18,6 +17,9 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 }) => {
 	const [status, setStatus] = useState(request.status)
 	const [priority, setPriority] = useState(request.priority)
+
+	console.log(request)
+
 	const [update, { isLoading, isError }] = useUpdateRequestMutation()
 	const {
 		register,
@@ -26,7 +28,10 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 		handleSubmit,
 		reset,
 	} = useForm<AdminEditRequestFormValues>({
-		defaultValues: adminEditRequestDefaultValues,
+		defaultValues: {
+			execution_period: request.execution_period,
+			feedback: request.feedback,
+		},
 		mode: 'onChange',
 		resolver: yupResolver(adminEditRequestValidationSchema),
 	})
@@ -127,12 +132,20 @@ export const AdminEditRequestPopup: React.FC<AdminEditRequestPopupProps> = ({
 				</div>
 
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<span>Срок исполнения</span>
-					<input
-						{...register('execution_period')}
-						placeholder='Срок исполнения'
-					/>
-					{errors?.execution_period && <p>{errors.execution_period.message}</p>}
+					{status !== 'Выполнена' && (
+						<>
+							<span>Срок исполнения</span>
+							<input
+								{...register('execution_period')}
+								placeholder='Срок исполнения'
+								// value={executionPeriod}
+								// onChange={e => setExecutionPeriod(e.target.value)}
+							/>
+							{errors?.execution_period && (
+								<p>{errors.execution_period.message}</p>
+							)}
+						</>
+					)}
 					<span>Обратная связь </span> <textarea {...register('feedback')} />
 					{errors?.feedback && <p>{errors.feedback.message}</p>}
 					<button type='submit'>
