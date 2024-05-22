@@ -18,7 +18,15 @@
 	}
 }
 
-.profile {
+.sideMenu {
+	display: flex;
+	align-items: center;
+
+	gap: 20px;
+}
+
+.profile,
+.admin {
 	opacity: 0.45;
 
 	transition: 0.2s all ease-in-out;
@@ -28,26 +36,31 @@
 	}
 }
 
+.admin:hover {
+	animation: admin 1s 1;
+}
+
 @media (max-width: 1200px) {
 	.logo {
 		width: 60px;
 	}
 }
 @media (max-width: 540px) {
-	.profile {
+	.profile,
+	.admin {
 		width: 30px;
 	}
 }
 
-@keyframes noti {
+@keyframes admin {
 	0% {
-		transform: rotate(1deg);
+		transform: rotate(-10deg);
 	}
 	25% {
-		transform: rotate(5deg);
+		transform: rotate(50deg);
 	}
 	75% {
-		transform: rotate(2deg);
+		transform: rotate(-10deg);
 	}
 	100% {
 		transform: rotate(0deg);

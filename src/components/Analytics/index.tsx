@@ -4,7 +4,6 @@ import styles from './Analytics.module.scss'
 
 export const Analytics = () => {
 	const { data, isLoading, isError } = useGetAnalyticsQuery({})
-	console.log(data)
 
 	return (
 		<>
