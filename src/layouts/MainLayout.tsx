@@ -4,12 +4,10 @@ import { Header } from '../components'
 
 const MainLayout: React.FC = () => {
 	return (
-		<>
-			<div className='content'>
-				<Header />
-				<Outlet />
-			</div>
-		</>
+		<div className='content'>
+			<Header />
+			<Outlet />
+		</div>
 	)
 }
 
