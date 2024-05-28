@@ -1,3 +1,3 @@
 export interface CreateReqPopupProps {
-	setSelfOpened: (bool: Boolean) => void
+	setSelfOpened: (bool: boolean) => void
 }

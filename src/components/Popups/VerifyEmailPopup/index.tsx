@@ -10,7 +10,7 @@ import {
 } from '../../../redux/services/user'
 
 export interface EmailPopupProps {
-	setSelfOpened: (bool: Boolean) => void
+	setSelfOpened: (bool: boolean) => void
 }
 
 export const VerifyEmailPopup: React.FC<EmailPopupProps> = ({

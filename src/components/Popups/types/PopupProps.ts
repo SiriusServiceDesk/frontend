@@ -1,4 +1,4 @@
 export interface PopupProps {
-	setSelfOpened: (bool: Boolean) => void
-	setProceedOpened: (bool: Boolean) => void
+	setSelfOpened: (bool: boolean) => void
+	setProceedOpened: (bool: boolean) => void
 }

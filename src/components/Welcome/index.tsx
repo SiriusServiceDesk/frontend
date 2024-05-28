@@ -6,7 +6,7 @@ import { CreateRequestPopup } from '../index'
 import styles from './Welcome.module.scss'
 
 export const Welcome = () => {
-	const [createReqOpened, setCreateReqOpened] = useState<Boolean>(false)
+	const [createReqOpened, setCreateReqOpened] = useState<boolean>(false)
 	const { name } = useSelector(userSelector)
 
 	return (

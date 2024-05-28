@@ -14,7 +14,7 @@ import eye from '../../../assets/eye.svg'
 import eyeCrossed from '../../../assets/eyeCrossed.svg'
 
 interface VerifyProp {
-	setEmailVerifyOpened: (bool: Boolean) => void
+	setEmailVerifyOpened: (bool: boolean) => void
 }
 
 export const RegisterPopup: React.FC<PopupProps & VerifyProp> = ({

@@ -15,9 +15,9 @@ import styles from './Header.module.scss'
 
 export const Header = () => {
 	const dispatch = useDispatch()
-	const [regPopupOpened, setRegPopupOpened] = useState<Boolean>(false)
-	const [logPopupOpened, setLogPopupOpened] = useState<Boolean>(false)
-	const [verifyPopupOpened, setVerifyPopupOpened] = useState<Boolean>(false)
+	const [regPopupOpened, setRegPopupOpened] = useState<boolean>(false)
+	const [logPopupOpened, setLogPopupOpened] = useState<boolean>(false)
+	const [verifyPopupOpened, setVerifyPopupOpened] = useState<boolean>(false)
 	const navigate = useNavigate()
 
 	const { data, isLoading } = useGetUserQuery({})
@@ -25,12 +25,12 @@ export const Header = () => {
 		if (!isLoading && data) {
 			dispatch(setUser(data.payload))
 		}
-	}, [data, isLoading])
+	}, [data, isLoading, dispatch])
 
 	const userData = useSelector(userSelector)
 
 	const handleExit = () => {
-		let conf = confirm('Вы уверены, что хотите выйти?')
+		const conf = confirm('Вы уверены, что хотите выйти?')
 		if (conf) {
 			dispatch(removeUser())
 			navigate('/')
