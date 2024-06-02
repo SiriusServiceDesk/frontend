@@ -44,16 +44,16 @@ export const RegisterPopup: React.FC<PopupProps & VerifyProp> = ({
 		const { name, surname, email, password } = data
 
 		registration({ name, surname, email, password }).then((response: any) => {
-			if (isRegError) {
-				console.log(response)
+			if (response.error) {
+				console.log(response, 'oshibka')
 			} else {
 				dispatch(setUser({ email, password }))
+				setEmailVerifyOpened(true)
+				setSelfOpened(false)
 			}
 		})
 		reset()
 		clearErrors()
-		setEmailVerifyOpened(true)
-		setSelfOpened(false)
 	}
 
 	const handleProceed = () => {
@@ -118,6 +118,9 @@ export const RegisterPopup: React.FC<PopupProps & VerifyProp> = ({
 					{errors?.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 					<button type='submit'>Создать аккаунт</button>
 				</form>
+				{isRegError && (
+					<span className='login-error'>Что-то пошло не так...</span>
+				)}
 				<span className='popup-wrapper__alternative'>
 					Аккаунт уже есть? <b onClick={handleProceed}>Войти</b>
 				</span>
