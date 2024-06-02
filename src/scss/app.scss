@@ -719,6 +719,19 @@ body {
 		}
 	}
 
+	&-monitoring {
+		a {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
+		transition: all 0.2s ease-in-out;
+		cursor: pointer;
+		&:hover {
+			opacity: 1 !important;
+		}
+	}
 	@media (max-width: 700px) {
 		&-menu {
 			gap: 20px;

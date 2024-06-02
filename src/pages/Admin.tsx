@@ -4,7 +4,7 @@ import { useState } from 'react'
 import analytics from '../assets/analytics.svg'
 import lightning from '../assets/lightning.svg'
 import pen from '../assets/pen.svg'
-import { AdminRequests, Analytics, Monitoring } from '../components'
+import { AdminRequests, Analytics } from '../components'
 import { useGetAllAdminQuery } from '../redux/services/application'
 import Loading from './Loading'
 
@@ -15,7 +15,7 @@ const Admin = () => {
 	const view = !isLoading && {
 		0: <AdminRequests requests={data.payload} />,
 		1: <Analytics />,
-		2: <Monitoring />,
+		// 2: <Monitoring />,
 	}
 	return (
 		<>
@@ -40,12 +40,14 @@ const Admin = () => {
 									<img src={analytics} alt='analytics' />
 									<span>Аналитика</span>
 								</li>
-								<li
-									className={selectedView === 2 ? 'admin-menu__selected' : ''}
-									onClick={() => setSelectedView(2)}
-								>
-									<img src={lightning} alt='lightning' />
-									<span>Мониторинг</span>
+								<li className='admin-monitoring'>
+									<a
+										href='http://213.226.127.82:3011/d/bdmwbclyq0934f/services?orgId=1&from=1717323452318&to=1717323752319&viewPanel=1'
+										target='_blank'
+									>
+										<img src={lightning} alt='lightning' />
+										<span>Мониторинг</span>
+									</a>
 								</li>
 							</ul>
 							{(view as any)[selectedView]}
