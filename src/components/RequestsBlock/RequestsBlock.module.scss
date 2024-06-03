@@ -134,8 +134,17 @@
 	}
 }
 
+.id {
+	min-width: 80px;
+
+	@media (max-width: 960px) {
+		min-width: 60px;
+	}
+}
+
 .title {
-	width: clamp(200px, 20%, 300px);
+	width: clamp(200px, 20%, 250px);
+	margin-left: auto;
 }
 
 .date {
@@ -148,10 +157,12 @@
 
 .performer {
 	width: clamp(150px, 20%, 250px);
+	margin-left: auto;
 }
 
 .status {
 	width: clamp(50px, 20%, 120px);
+	margin-left: auto;
 }
 
 @media (max-width: 690px) {
