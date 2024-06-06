@@ -41,10 +41,7 @@ const Admin = () => {
 									<span>Аналитика</span>
 								</li>
 								<li className='admin-monitoring'>
-									<a
-										href='http://213.226.127.82:3011/d/bdmwbclyq0934f/services?orgId=1&from=1717323452318&to=1717323752319&viewPanel=1'
-										target='_blank'
-									>
+									<a href='http://213.226.127.82:3000/login' target='_blank'>
 										<img src={lightning} alt='lightning' />
 										<span>Мониторинг</span>
 									</a>
