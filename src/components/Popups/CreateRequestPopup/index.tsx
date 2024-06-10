@@ -39,7 +39,8 @@ export const CreateRequestPopup: React.FC<CreateReqPopupProps> = ({
 		create({
 			title,
 			comment,
-			performer: selectedPerformer ? Performers[selectedPerformer] : '',
+			performer:
+				selectedPerformer !== undefined ? Performers[selectedPerformer] : '',
 		}).then((response: any) => {
 			if (!response.error) {
 				setSelfOpened(false)
